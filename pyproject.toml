@@ -1,0 +1,99 @@
+# SPDX-FileCopyrightText: 2026 Coastal Agentics
+# SPDX-License-Identifier: Apache-2.0
+
+[build-system]
+requires = ["hatchling>=1.27"]
+build-backend = "hatchling.build"
+
+[project]
+name = "saltmarsh"
+version = "0.1.0.dev0"
+description = "Simulation, data, behavior and evaluation tools for physical AI, built on MuJoCo and LeRobot."
+readme = "README.md"
+license = "Apache-2.0"
+license-files = ["LICENSE", "NOTICE"]
+requires-python = ">=3.12"
+authors = [{ name = "Coastal Agentics" }]
+keywords = ["robotics", "mujoco", "lerobot", "reinforcement-learning", "imitation-learning"]
+classifiers = [
+    "Development Status :: 2 - Pre-Alpha",
+    "Intended Audience :: Developers",
+    "Intended Audience :: Science/Research",
+    "Operating System :: POSIX :: Linux",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+]
+# The base install (data + eval) has no third-party dependencies.
+dependencies = []
+
+[project.optional-dependencies]
+sim = [
+    "gymnasium[mujoco]>=1.1.1,<2",
+    "mujoco>=3.3,<4",
+]
+behavior = [
+    "lerobot[dataset]==0.6.1",
+    "torch>=2.7,<2.12",
+    "stable-baselines3>=2.9,<3",
+    "gymnasium>=1.1.1,<2",
+]
+perception = [
+    "rerun-sdk==0.33.1",
+    "open3d>=0.20,<0.21",
+    "numpy>=2",
+]
+movement = [
+    "lerobot==0.6.1",
+    "mink>=1.3,<2",
+    "pin>=4.1,<5",
+]
+# rclpy is not distributed on PyPI. It comes from a ROS 2 install, so this
+# extra installs nothing; see the "ROS 2" section of README.md.
+ros = []
+# The tank engine wheel (saltmarsh-arena) is not published yet and is not
+# listed here; see ARCHITECTURE.md and docs/adr/ADR-001-packaging-and-scope.md.
+gaming = [
+    "pettingzoo>=1.27,<2",
+    "gymnasium>=1.1.1,<2",
+    "py_trees==2.6.0",
+]
+all = ["saltmarsh[sim,behavior,perception,movement,ros,gaming]"]
+
+[project.urls]
+Repository = "https://github.com/Coastal-Agentics/saltmarsh"
+Issues = "https://github.com/Coastal-Agentics/saltmarsh/issues"
+
+[dependency-groups]
+dev = ["pytest>=8", "ruff==0.16.10"]
+reuse = ["reuse[charset-normalizer]==6.2.0"]
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/saltmarsh"]
+
+[tool.hatch.build.targets.sdist]
+include = [
+    "src/",
+    "tests/",
+    "examples/",
+    "docs/",
+    "LICENSES/",
+    "README.md",
+    "ARCHITECTURE.md",
+    "GOVERNANCE.md",
+    "NOTICE",
+    "REUSE.toml",
+]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-ra"
+
+[tool.ruff]
+line-length = 100
+target-version = "py312"
+src = ["src", "tests"]
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "B", "UP", "SIM"]
