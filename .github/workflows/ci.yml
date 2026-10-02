@@ -1,0 +1,114 @@
+# SPDX-FileCopyrightText: 2026 Coastal Agentics
+# SPDX-License-Identifier: Apache-2.0
+
+name: ci
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  base:
+    runs-on: ubuntu-24.04
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ["3.12", "3.13"]
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-python@v7
+        with:
+          python-version: ${{ matrix.python-version }}
+      - name: Install (base only)
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install . --group dev
+      - name: Base install pulls in no heavy stack
+        run: |
+          python - <<'PY'
+          import importlib.util, sys
+          heavy = ["torch", "mujoco", "gymnasium", "lerobot", "rerun", "open3d", "pettingzoo", "py_trees"]
+          found = [m for m in heavy if importlib.util.find_spec(m) is not None]
+          print("heavy packages installed:", found)
+          sys.exit(1 if found else 0)
+          PY
+      - name: Lint
+        run: |
+          ruff check .
+          ruff format --check .
+      - name: Test
+        run: python -m pytest
+
+  sim:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-python@v7
+        with:
+          python-version: "3.12"
+      - name: Install with [sim]
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install ".[sim]" --group dev
+      - name: Test (MuJoCo step must run, not skip)
+        env:
+          SALTMARSH_REQUIRE_SIM: "1"
+        run: python -m pytest
+
+  all-resolve:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-python@v7
+        with:
+          python-version: "3.12"
+      - name: Resolve [all]
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install --dry-run ".[all]"
+
+  reuse:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-python@v7
+        with:
+          python-version: "3.12"
+      - name: REUSE lint
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install --group reuse
+          reuse lint
+
+  dco:
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+      - name: Every commit is signed off by its author
+        env:
+          BASE_SHA: ${{ github.event.pull_request.base.sha }}
+          HEAD_SHA: ${{ github.event.pull_request.head.sha }}
+        run: |
+          status=0
+          for sha in $(git rev-list --no-merges "$BASE_SHA..$HEAD_SHA"); do
+            author="$(git show -s --format='%an <%ae>' "$sha")"
+            if git show -s --format='%(trailers:key=Signed-off-by,valueonly)' "$sha" \
+                | sed 's/^ *//; s/ *$//' | grep -qxF "$author"; then
+              echo "ok      $sha"
+            else
+              echo "::error::commit $sha has no 'Signed-off-by:' trailer matching its author"
+              status=1
+            fi
+          done
+          exit $status
