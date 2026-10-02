@@ -38,3 +38,17 @@ def test_missing_extra_names_the_extra(module, func):
     fn = getattr(importlib.import_module(mod_name), attr)
     with pytest.raises(MissingExtraError, match=r"saltmarsh\["):
         fn()
+
+
+def test_require_tells_missing_apart_from_broken(tmp_path, monkeypatch):
+    from saltmarsh._extras import require
+
+    (tmp_path / "sm_broken_pkg.py").write_text("raise ImportError('libEGL.so.1: cannot open')\n")
+    (tmp_path / "sm_needs_dep.py").write_text("import sm_no_such_dependency\n")
+    monkeypatch.syspath_prepend(str(tmp_path))
+    with pytest.raises(MissingExtraError, match=r"not installed.*saltmarsh\[sim\]"):
+        require("sm_no_such_module", "sim")
+    with pytest.raises(MissingExtraError, match=r"installed but failed to import.*libEGL"):
+        require("sm_broken_pkg", "perception")
+    with pytest.raises(MissingExtraError, match=r"installed but failed to import"):
+        require("sm_needs_dep", "behavior")

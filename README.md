@@ -27,6 +27,8 @@ pip install ".[all]"     # everything that is on PyPI
 | `[gaming]` | `gaming` | `pettingzoo`, `py_trees==2.6.0` |
 | `[all]` | all of the above | |
 
+Open3D (in `[perception]`) loads the system EGL library, so on a minimal Linux install add it first (Debian/Ubuntu: `sudo apt install libegl1`).
+
 LeRobot and Rerun are pre-1.0 and change quickly, so they are pinned to exact versions. Why these versions is recorded in [ADR-001](docs/adr/ADR-001-packaging-and-scope.md). PyTorch is the only deep-learning framework in v0.1.
 
 ## Parts
