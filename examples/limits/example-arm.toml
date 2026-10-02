@@ -1,0 +1,33 @@
+# SPDX-FileCopyrightText: 2026 Coastal Agentics
+# SPDX-License-Identifier: Apache-2.0
+#
+# Example limits file for a generic 3-joint arm. The numbers are placeholders
+# that show the format. They are not measured and not safety-rated; do not use
+# them for a real robot. Units: radians, rad/s, N*m, metres, m/s, newtons.
+
+schema_version = 1
+robot = "example-arm"
+
+[joints.shoulder]
+position = [-1.57, 1.57]
+velocity = 1.0
+torque = 5.0
+
+[joints.elbow]
+position = [-2.0, 2.0]
+velocity = 1.5
+torque = 3.0
+
+[joints.wrist]
+position = [-1.57, 1.57]
+velocity = 2.0
+torque = 1.0
+
+# Axis-aligned box the end effector must stay inside, in the robot base frame.
+[workspace]
+min = [-0.30, -0.30, 0.00]
+max = [0.30, 0.30, 0.40]
+
+[end_effector]
+max_speed = 0.25
+max_contact_force = 10.0
