@@ -12,14 +12,17 @@ Some agent and eval logic needs fuzzy, typed judgments that hand-written rules h
 1. **One small interface, `Decider`.** It takes a state as text plus typed questions and returns typed answers. It is a protocol, not a framework. A sketch (not code in the package):
 
    ```python
-   # Sketch only.
-   Question = Choice(name, options) | Score(name, levels) | Truth(name)  # Truth is a 0-1 value (Jev calls it Noul)
-   Answer   = (name, value, probabilities or None)
+   # Sketch only. Truth is a 0-1 value (Jev calls it Noul).
+   Question = Choice(name, options) | Score(name, levels) | Truth(name)
+   Answer = (name, value, probabilities or None)
+
 
    class Decider(Protocol):
-       name: str        # e.g. "py_trees", "log", "outlines", "jev"
-       version: str     # library or model version, pinned (e.g. "jev-1.13.0", never an alias)
+       name: str  # e.g. "py_trees", "log", "outlines", "jev"
+       version: str  # pinned library or model version, e.g. "jev-1.13.0", never an alias
+
        def decide(self, state: str, questions: Sequence[Question]) -> Decision: ...
+
 
    # Decision = answers + backend name + backend version + request_hash
    ```
