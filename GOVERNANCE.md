@@ -18,10 +18,11 @@ Saltmarsh is a company-led open-source project. Coastal Agentics started it and 
 
 - All contributions are under Apache-2.0. Each commit must carry a Developer Certificate of Origin sign-off (`git commit -s`), which adds a `Signed-off-by:` line. There is no CLA.
 - New files must carry SPDX license information so that `reuse lint` passes.
+- Once the `coastal-agentics-bot` GitHub App is in use, commits by the project's AI agents are authored by `coastal-agentics-bot[bot]`, carry `Agent-Run:` and `On-Behalf-Of:` trailers, and are signed off by the maintainer. See [AUTHORS.md](AUTHORS.md).
 
 ## Name
 
-The "Saltmarsh" name is used by Coastal Agentics for this project. Apache-2.0 does not grant rights to use the name (section 6 of the license).
+The "Saltmarsh" name is used by Coastal Agentics for this project. Apache-2.0 does not grant rights to use the name (section 6 of the license). See [TRADEMARKS.md](TRADEMARKS.md).
 
 ## Changes to this document
 

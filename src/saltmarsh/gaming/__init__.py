@@ -1,4 +1,4 @@
-# SPDX-FileCopyrightText: 2026 Coastal Agentics
+# SPDX-FileCopyrightText: 2026 Nye Warburton
 # SPDX-License-Identifier: Apache-2.0
 """gaming: arenas, multi-agent self-play and browser demos (stub).
 

@@ -77,3 +77,5 @@ The CI jobs are specified in [docs/ci-spec.md](docs/ci-spec.md).
 - **Datasets** that Saltmarsh records and publishes are CC BY 4.0 (SPDX `CC-BY-4.0`).
 
 Every file carries SPDX license information, and the repository follows the [REUSE](https://reuse.software/) specification (`reuse lint`). Contributions are accepted under the Developer Certificate of Origin: sign off each commit with `git commit -s`. See [GOVERNANCE.md](GOVERNANCE.md).
+
+Names and logos: [TRADEMARKS.md](TRADEMARKS.md). How this was made: [AUTHORS.md](AUTHORS.md).

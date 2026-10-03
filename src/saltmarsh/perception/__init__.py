@@ -1,4 +1,4 @@
-# SPDX-FileCopyrightText: 2026 Coastal Agentics
+# SPDX-FileCopyrightText: 2026 Nye Warburton
 # SPDX-License-Identifier: Apache-2.0
 """perception: cameras, depth, point clouds and top-down maps (stub).
 

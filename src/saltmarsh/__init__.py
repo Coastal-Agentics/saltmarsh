@@ -1,4 +1,4 @@
-# SPDX-FileCopyrightText: 2026 Coastal Agentics
+# SPDX-FileCopyrightText: 2026 Nye Warburton
 # SPDX-License-Identifier: Apache-2.0
 """Saltmarsh: simulation, data, behavior and evaluation tools for physical AI.
 

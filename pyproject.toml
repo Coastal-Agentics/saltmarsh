@@ -1,4 +1,4 @@
-# SPDX-FileCopyrightText: 2026 Coastal Agentics
+# SPDX-FileCopyrightText: 2026 Nye Warburton
 # SPDX-License-Identifier: Apache-2.0
 
 [build-system]
@@ -13,7 +13,7 @@ readme = "README.md"
 license = "Apache-2.0"
 license-files = ["LICENSE", "NOTICE"]
 requires-python = ">=3.12"
-authors = [{ name = "Coastal Agentics" }]
+authors = [{ name = "Nye Warburton" }]
 keywords = ["robotics", "mujoco", "lerobot", "reinforcement-learning", "imitation-learning"]
 classifiers = [
     "Development Status :: 2 - Pre-Alpha",
@@ -82,6 +82,8 @@ include = [
     "README.md",
     "ARCHITECTURE.md",
     "GOVERNANCE.md",
+    "TRADEMARKS.md",
+    "AUTHORS.md",
     "NOTICE",
     "REUSE.toml",
 ]

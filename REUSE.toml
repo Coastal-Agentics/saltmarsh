@@ -1,14 +1,15 @@
-# SPDX-FileCopyrightText: 2026 Coastal Agentics
+# SPDX-FileCopyrightText: 2026 Nye Warburton
 # SPDX-License-Identifier: Apache-2.0
 
 version = 1
 SPDX-PackageName = "saltmarsh"
+SPDX-PackageSupplier = "Nye Warburton"
 SPDX-PackageDownloadLocation = "https://github.com/Coastal-Agentics/saltmarsh"
 
 # Files without room for a comment header: Markdown docs, NOTICE, .gitignore
 # and the empty py.typed marker. Python and TOML files carry their own headers.
 [[annotations]]
-path = ["*.md", "**/*.md", "NOTICE", ".gitignore", "src/saltmarsh/py.typed"]
+path = ["*.md", "**/*.md", "NOTICE", ".gitignore", "src/saltmarsh/py.typed", ".github/CODEOWNERS"]
 precedence = "aggregate"
-SPDX-FileCopyrightText = "2026 Coastal Agentics"
+SPDX-FileCopyrightText = "2026 Nye Warburton"
 SPDX-License-Identifier = "Apache-2.0"
