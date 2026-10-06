@@ -15,7 +15,7 @@ The plan comes from Reflector's finding "Robot Arm POC with MuJoCo and Our Engin
 
 So the world records **states, not actions**.
 
-Related records: ADR-001 (packaging, safety, licensing), ADR-002 (the Decider), and arena ADR-017 (Proposed, [Coastal-Agentics/arena](https://github.com/Coastal-Agentics/arena)): one three.js page in the arena viewer for state-log playback, with engine-wasm owning the timeline.
+Related records: ADR-001 (packaging, safety, licensing), ADR-002 (the Decider), and arena ADR-017 (Proposed, [Coastal-Agentics/arena#79](https://github.com/Coastal-Agentics/arena/pull/79)): one three.js page in the arena viewer for state-log playback, with engine-wasm owning the timeline.
 
 ## Decisions
 
