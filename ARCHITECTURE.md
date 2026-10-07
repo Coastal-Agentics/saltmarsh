@@ -13,7 +13,7 @@ Hardware and sim-to-real are not separate parts. LeRobot already puts real and s
 | `movement` | kinematics, IK, controllers, robot interfaces (real and sim), optional ROS 2 bridge | LeRobot `Robot`, mink, Pinocchio, rclpy (optional) | `[movement]`, `[ros]` |
 | `behavior` | policies, imitation and RL training, reward functions | MuJoCo-native motion imitation, LeRobot policies, Stable-Baselines3, PyTorch | `[behavior]` |
 | `simulation` | worlds, physics, robot models, sim-to-real (randomization, calibration) | MuJoCo, Gymnasium, MuJoCo Menagerie models | `[sim]` |
-| `gaming` | arenas, multi-agent self-play, browser demos | PettingZoo, py_trees, the arena engine (via `saltmarsh-arena`, planned) | `[gaming]` |
+| `gaming` | arenas, multi-agent self-play, browser demos | PettingZoo, py_trees, the Arena engine (via `coastal-arena`, planned) | `[gaming]` |
 | `eval` | fixed seed sets, pass/fail metrics, cost signals, limits, watchdog, pre-run safety check | Gymnasium/PettingZoo seeding; Safety-Gymnasium as a reference only | base |
 
 ## Dependency rules
@@ -40,7 +40,7 @@ All of them use permissive licenses (MIT, Apache-2.0 or BSD).
 | [Gymnasium](https://github.com/Farama-Foundation/Gymnasium) | MIT | simulation, eval |
 | [PettingZoo](https://github.com/Farama-Foundation/PettingZoo) | MIT | gaming, eval |
 | [py_trees](https://github.com/splintered-reality/py_trees) | BSD-3-Clause | gaming |
-| [PyO3](https://github.com/PyO3/pyo3), [maturin](https://github.com/PyO3/maturin) | MIT OR Apache-2.0 | `saltmarsh-arena` build (planned) |
+| [PyO3](https://github.com/PyO3/pyo3), [maturin](https://github.com/PyO3/maturin) | MIT OR Apache-2.0 | `coastal-arena` build (planned) |
 
 LeRobot and Rerun are pre-1.0 and change quickly, so they are pinned to exact versions. See [ADR-001](docs/adr/ADR-001-packaging-and-scope.md).
 
@@ -61,8 +61,8 @@ Planned for later releases: rollout logs (seed, policy hash, limits file, cost t
 
 ## Rust: the tank arena
 
-- The tank engine stays a Rust crate in [starscream-agentics/arena](https://github.com/starscream-agentics/arena).
-- It will be wrapped with PyO3 and built with maturin as a separate compiled wheel, `saltmarsh-arena`. It will be exposed as a Gymnasium env (one agent) and a PettingZoo parallel env (several agents).
+- The tank engine is the Arena engine, which stays a Rust crate in [Coastal-Agentics/arena](https://github.com/Coastal-Agentics/arena).
+- It will be wrapped with PyO3 and built with maturin as a separate compiled wheel, `coastal-arena`. It will be exposed as a Gymnasium env (one agent) and a PettingZoo parallel env (several agents).
 - Once that wheel is published, `[gaming]` will depend on it. Until then, `saltmarsh.gaming.make_arena_env` raises a clear error, and no extra refers to the unpublished package, so `pip install ".[all]"` keeps working.
 - A separate wheel keeps the pure-Python core simple to build and release.
 - `mujoco-rs` stays out of the core. It may be used for Rust-side replay tools only.

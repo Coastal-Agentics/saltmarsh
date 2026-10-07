@@ -52,7 +52,7 @@ movement = [
 # rclpy is not distributed on PyPI. It comes from a ROS 2 install, so this
 # extra installs nothing; see the "ROS 2" section of README.md.
 ros = []
-# The tank engine wheel (saltmarsh-arena) is not published yet and is not
+# The tank engine wheel (coastal-arena) is not published yet and is not
 # listed here; see ARCHITECTURE.md and docs/adr/ADR-001-packaging-and-scope.md.
 gaming = [
     "pettingzoo>=1.27,<2",

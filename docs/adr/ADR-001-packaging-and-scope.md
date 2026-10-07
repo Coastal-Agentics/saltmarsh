@@ -2,6 +2,7 @@
 
 - **Status:** Accepted
 - **Date:** 2026-10-02
+- **Amended 2026-10-07:** the arena repo is now [Coastal-Agentics/arena](https://github.com/Coastal-Agentics/arena) and its wheel is `coastal-arena` (item 8 uses the old repo and the old working name). The decisions are unchanged.
 
 ## Context
 
