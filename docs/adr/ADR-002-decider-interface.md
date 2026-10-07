@@ -2,10 +2,11 @@
 
 - **Status:** Accepted
 - **Date:** 2026-10-03
+- **Amended 2026-10-07:** the arena repo moved to [Coastal-Agentics/arena](https://github.com/Coastal-Agentics/arena), so the ADR-015 link now points there. The decisions are unchanged.
 
 ## Context
 
-Some agent and eval logic needs fuzzy, typed judgments that hand-written rules handle badly: "which target now?", "was this match a stalemate?", "is this user-written text acceptable?". Arena [ADR-015](https://github.com/starscream-agentics/arena/blob/main/docs/DECISIONS.md) (Accepted, 2026-10-03) allows TypeSafe AI's hosted Jev model for exactly this, outside the 60 Hz tick, with every decision logged, and puts the interface for it in Saltmarsh. This record fixes that interface. It was accepted on review of PR #2, which answered its open questions; those answers are recorded below as decisions. It adds no code and no dependencies.
+Some agent and eval logic needs fuzzy, typed judgments that hand-written rules handle badly: "which target now?", "was this match a stalemate?", "is this user-written text acceptable?". Arena [ADR-015](https://github.com/Coastal-Agentics/arena/blob/main/docs/DECISIONS.md) (Accepted, 2026-10-03) allows TypeSafe AI's hosted Jev model for exactly this, outside the 60 Hz tick, with every decision logged, and puts the interface for it in Saltmarsh. This record fixes that interface. It was accepted on review of PR #2, which answered its open questions; those answers are recorded below as decisions. It adds no code and no dependencies.
 
 ## Decisions
 
