@@ -43,7 +43,7 @@ LeRobot and Rerun are pre-1.0 and change quickly, so they are pinned to exact ve
 
 **simulation.** Worlds, physics, robot models and sim-to-real tools such as domain randomization and calibration. MuJoCo environments are exposed through Gymnasium. Needs `[sim]`.
 
-**gaming.** Arenas, multi-agent self-play and browser demos. Agent logic uses behavior trees through py_trees, and multi-agent envs follow PettingZoo's parallel API. The tank engine is a Rust crate in [starscream-agentics/arena](https://github.com/starscream-agentics/arena). It will ship as a separate `saltmarsh-arena` wheel that `[gaming]` will depend on. That wheel is not published yet, so for now gaming is a stub. Needs `[gaming]`.
+**gaming.** Arenas, multi-agent self-play and browser demos. Agent logic uses behavior trees through py_trees, and multi-agent envs follow PettingZoo's parallel API. The tank engine is the Arena engine, a Rust crate in [Coastal-Agentics/arena](https://github.com/Coastal-Agentics/arena). It will ship as a separate `coastal-arena` wheel that `[gaming]` will depend on. That wheel is not published yet, so for now gaming is a stub. Needs `[gaming]`.
 
 **eval.** Fixed seed sets, pass/fail metrics, cost signals and safety checks. Every env step reports a cost alongside its reward, and an episode that goes over its cost budget fails. Each robot has a limits file, which a strict loader validates. A runtime watchdog sits between policy and robot. It stops when commands go stale or break the limits, and it offers a software stop. Every eval run first passes a pre-run check that fails closed. Sim runs pass. Hardware runs are refused unless a named operator has confirmed a tested physical e-stop within reach and a limits file is loaded. It is part of the base install.
 
@@ -58,6 +58,32 @@ See [ARCHITECTURE.md](ARCHITECTURE.md) for how the parts depend on each other.
 3. Install Saltmarsh into an environment that can see ROS 2's Python packages, e.g. `python3 -m venv --system-site-packages .venv`.
 
 `saltmarsh.movement.ros.rclpy()` raises an error that explains these steps when `rclpy` is not importable. ROS 2 is optional and is not a focus for v0.1.
+
+## How the repos fit
+
+Coastal Agentics has four public repos. They all live in the [Coastal-Agentics](https://github.com/Coastal-Agentics) GitHub org, and their sites are served together under one host.
+
+```mermaid
+flowchart LR
+    site["coastal-agentics.github.io<br/>company site at /"]
+    nyborgs["nyborgs<br/>Nyborgs landing page at /nyborgs/"]
+    arena["arena<br/>Rust engine + games, web viewer, Customizer at /arena/"]
+    saltmarsh["saltmarsh<br/>Python robotics library"]
+    site --> nyborgs
+    site --> arena
+    site --> saltmarsh
+    nyborgs -- "play and customize" --> arena
+    arena -. "coastal-arena wheel (planned)" .-> saltmarsh
+```
+
+| Repo | What it is | Owner |
+| --- | --- | --- |
+| [coastal-agentics.github.io](https://github.com/Coastal-Agentics/coastal-agentics.github.io) | The company site, served at `/` ([site](https://coastal-agentics.github.io/)) | Soundwave (legal pages: Onslaught) |
+| [nyborgs](https://github.com/Coastal-Agentics/nyborgs) | The Nyborgs landing page, served at `/nyborgs/` ([site](https://coastal-agentics.github.io/nyborgs/)) | Blitzwing |
+| [arena](https://github.com/Coastal-Agentics/arena) | The Rust engine (`engine`, `engine-cli`, `engine-wasm`, and `engine-py`, the `coastal-arena` Python wheel) plus the Tank Arena and racing games, the web viewer and the Nyborg Customizer, served at `/arena/` ([site](https://coastal-agentics.github.io/arena/)) | Engine: Shockwave. Games, web viewer and Customizer: Blitzwing |
+| [saltmarsh](https://github.com/Coastal-Agentics/saltmarsh) | The Python robotics library: MuJoCo simulation, datasets, behavior and evaluation, and the robot arm demo | Shockwave |
+
+"Saltmarsh" means only the Python robotics library. The engine is the Arena engine, and it lives in `arena`.
 
 ## Development
 
